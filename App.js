@@ -26,7 +26,7 @@ export default function App() {
           activeText={'manual upload'}
           inactiveText={'shares'}
           fontStyles = {{fontSize: 9, fontWeight: 'bold', color: 'white'}}
-          disabledComp = {false}
+          disabled={false}
       />
     </View>
 

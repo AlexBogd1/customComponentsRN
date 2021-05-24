@@ -11,7 +11,7 @@ const CustomSwitch = (
         activeText,
         inactiveText,
         fontStyles,
-        disabledComp
+        disabled
     }) => {
 
     let activeStyle = {...styles.active} ;
@@ -25,7 +25,7 @@ const CustomSwitch = (
 
     return (
         <View style={backStyle}>
-            <TouchableWithoutFeedback onPress={onChangeValue} disabled = {disabledComp}>
+            <TouchableWithoutFeedback onPress={onChangeValue} disabled = {disabled}>
                 <View style={styles.component}>
                     <View style={!value ? activeStyle : inactiveStyle}>
                         <Text style={fontStyles}>{inactiveText ? inactiveText: 'off'}</Text>
