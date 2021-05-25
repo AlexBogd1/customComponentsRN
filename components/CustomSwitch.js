@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableWithoutFeedback, Animated} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, TouchableWithoutFeedback, Animated, Easing} from 'react-native';
 
 const CustomSwitch = (
     {
@@ -33,11 +33,34 @@ const CustomSwitch = (
         },
     });
 
+    const animation = new Animated.Value(0);
+
+    const changeColor = () => {
+        Animated.timing(animation, {
+            toValue: 1,
+            duration: 300,
+        }).start();
+    };
+    const activeColorAnimation = {
+            backgroundColor: animation.interpolate({
+                inputRange:[0, 1],
+                outputRange: [sideColor, activeColor],
+            })
+    };
+
+    useEffect(() => {
+        changeColor();
+    })
+
+
     const elements = switches.map(val =>
-        <TouchableWithoutFeedback key={Math.random().toString()} onPress={() => onChangeValue(val)} disabled={disabled}>
-            <View style={val === value ? {...customItemStyle, backgroundColor: activeColor,} : customItemStyle}>
+        <TouchableWithoutFeedback key={val} onPress={() => {
+            onChangeValue(val)
+        }
+        } disabled={disabled}>
+            <Animated.View style={val === value ? [customItemStyle, activeColorAnimation]: customItemStyle}>
                 <Text style={val === value ? {...fontStyles, color: activeTextColor} : fontStyles}>{val}</Text>
-            </View>
+            </Animated.View>
         </TouchableWithoutFeedback>
     )
 

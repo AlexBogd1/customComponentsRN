@@ -16,7 +16,7 @@ export default function App() {
       </View>
       <CustomSwitch
           itemStyle = {styles.itemStyle}
-          switches={['first', 'second', 'third']}
+      switches={['first', 'second', 'third']}
           value={value}
           onChangeValue={onChangeValue}
           activeColor={'white'}
