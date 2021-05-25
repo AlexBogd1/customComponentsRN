@@ -39,6 +39,7 @@ const CustomSwitch = (
         Animated.timing(animation, {
             toValue: 1,
             duration: 300,
+            useNativeDriver: false,
         }).start();
     };
     const activeAnimationStyle = {
@@ -48,33 +49,35 @@ const CustomSwitch = (
             height: 2,
         },
         shadowOpacity: animation.interpolate({
-            inputRange:[0, 1],
-        outputRange: [0, 0.34],
+            inputRange: [0, 1],
+            outputRange: [0, 0.34],
         }),
         shadowRadius: animation.interpolate({
-            inputRange:[0, 1],
+            inputRange: [0, 1],
             outputRange: [0, 4.65],
         }),
         elevation: animation.interpolate({
-            inputRange:[0, 1],
+            inputRange: [0, 1],
             outputRange: [0, 8],
         }),
 
         backgroundColor: animation.interpolate({
-                inputRange:[0, 1],
-                outputRange: [sideColor, activeColor],
-            }),
+            inputRange: [0, 1],
+            outputRange: [sideColor, activeColor],
+        }),
     };
 
     useEffect(() => {
         changeActiveStyle();
-    });
+    }, [value, changeActiveStyle]);
 
 
     const elements = switches.map(val =>
-        <TouchableWithoutFeedback key={val} onPress={() => {onChangeValue(val)}
+        <TouchableWithoutFeedback key={val} onPress={() => {
+            onChangeValue(val)
+        }
         } disabled={disabled}>
-            <Animated.View style={val === value ? [customItemStyle, activeAnimationStyle]: customItemStyle}>
+            <Animated.View style={val === value ? [customItemStyle, activeAnimationStyle] : customItemStyle}>
                 <Text style={val === value ? {...fontStyles, color: activeTextColor} : fontStyles}>{val}</Text>
             </Animated.View>
         </TouchableWithoutFeedback>
@@ -86,7 +89,6 @@ const CustomSwitch = (
         </View>
     )
 };
-
 
 
 export default CustomSwitch;
