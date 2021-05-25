@@ -1,79 +1,54 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableWithoutFeedback, Animated} from 'react-native';
 
 const CustomSwitch = (
     {
-        style,
+        itemStyle,
+        switches,
         value,
         onChangeValue,
         activeColor,
         sideColor,
-        activeText,
-        inactiveText,
+        activeTextColor,
         fontStyles,
         disabled
     }) => {
 
-    let activeStyle = {...styles.active} ;
-    let inactiveStyle = {...styles.inactive};
-    let backStyle = {...styles.container};
 
-    activeColor ? activeStyle = {...activeStyle, backgroundColor: activeColor} : activeStyle;
-    sideColor ? inactiveStyle = {...inactiveStyle, backgroundColor: sideColor} : inactiveStyle;
-    style ? backStyle = {...backStyle, ...style} : backStyle;
-    sideColor ? backStyle = {...backStyle, backgroundColor: sideColor} : backStyle;
+    const generalItemStyle = {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 6,
+        paddingVertical: 6,
+        margin: 4,
+    };
+    const customItemStyle = {...generalItemStyle, ...itemStyle}
+
+    const styles = StyleSheet.create({
+        container: {
+            backgroundColor: sideColor ? sideColor : '#45549e',
+            flexDirection: 'row',
+            borderRadius: 10,
+            justifyContent: 'center',
+        },
+    });
+
+    const elements = switches.map(val =>
+        <TouchableWithoutFeedback key={Math.random().toString()} onPress={() => onChangeValue(val)} disabled={disabled}>
+            <View style={val === value ? {...customItemStyle, backgroundColor: activeColor,} : customItemStyle}>
+                <Text style={val === value ? {...fontStyles, color: activeTextColor} : fontStyles}>{val}</Text>
+            </View>
+        </TouchableWithoutFeedback>
+    )
 
     return (
-        <View style={backStyle}>
-            <TouchableWithoutFeedback onPress={onChangeValue} disabled = {disabled}>
-                <View style={styles.component}>
-                    <View style={!value ? activeStyle : inactiveStyle}>
-                        <Text style={fontStyles}>{inactiveText ? inactiveText: 'off'}</Text>
-                    </View>
-                    <View style={value ? activeStyle: inactiveStyle}>
-                        <Text style={fontStyles}>{activeText ? activeText : 'on'}</Text>
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>
+        <View style={styles.container}>
+            {elements}
         </View>
     )
 };
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#45549e',
-        borderRadius: 20,
-        justifyContent: 'center',
-        width: 200,
-        height: 40,
-        overflow: 'hidden',
-    },
-    component: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    active: {
-        backgroundColor: 'white',
-        borderRadius: 30,
-        paddingHorizontal: 8,
-        marginHorizontal: 3,
-        minWidth: '35%',
-        height: '85%',
-        justifyContent: 'center',
-        alignItems: 'center',
 
-    },
-    inactive: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        minWidth: '35%',
-        height: '85%',
-        marginHorizontal: 3,
-        paddingHorizontal: 8,
-        borderRadius: 20,
-    }
-});
 
 export default CustomSwitch;
+

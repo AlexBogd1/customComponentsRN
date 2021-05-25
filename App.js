@@ -4,29 +4,25 @@ import { StyleSheet, Text, View } from 'react-native';
 import CustomSwitch from "./components/CustomSwitch";
 
 export default function App() {
-  const [isActive, setIsActive] = useState(false);
-  const onChangeValue = () => {
-    setIsActive(val => !val);
+  const [value, setValue] = useState('');
+  const onChangeValue = (val) => {
+    setValue(val);
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.hiddenText}>
-        {isActive &&
-        <View>
-          <Text> Hello </Text>
-        </View>}
+      <View>
+        <Text>{value}</Text>
       </View>
       <CustomSwitch
-          style = {{width: 140,height: 40, borderRadius: 30}}
-          value={isActive}
+          itemStyle = {styles.itemStyle}
+          switches={['first', 'second', 'third']}
+          value={value}
           onChangeValue={onChangeValue}
-          activeColor={'#4785b7'}
-          sideColor ={'#9199c1'}
-          activeText={'manual upload'}
-          inactiveText={'shares'}
-          fontStyles = {{fontSize: 9, fontWeight: 'bold', color: 'white'}}
-          disabled={false}
+          activeColor={'white'}
+          sideColor ={'#d9dae0'}
+          activeTextColor={'black'}
+          fontStyles = {styles.fontStyle}
       />
     </View>
 
@@ -36,7 +32,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 300,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -44,4 +39,13 @@ const styles = StyleSheet.create({
   hiddenText: {
     height: 120,
   },
+  itemStyle : {
+    width: 90,
+    borderRadius: 10,
+  },
+  fontStyle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: 'black'
+  }
 });
