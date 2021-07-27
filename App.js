@@ -12,7 +12,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View>
-        <Text>{value}</Text>
+        <Text>{ value }</Text>
       </View>
       <CustomSwitch
           itemStyle = {styles.itemStyle}
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   hiddenText: {
-    height: 120,
+    height: 119,
   },
   itemStyle : {
     width: 90,
