@@ -12,7 +12,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View>
-        <Text>{value}</Text>
+        <Text>{ value }</Text>
       </View>
       <CustomSwitch
           itemStyle = {styles.itemStyle}
